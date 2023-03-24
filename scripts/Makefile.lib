@@ -326,10 +326,15 @@ $(obj)/%.dtbo: $(src)/%.dts FORCE
 
 dtc-tmp = $(subst $(comma),_,$(dot-target).dts.tmp)
 
-# mkdtimg
+# # mkdtimg
+# #----------------------------------------------------------------------------
+# quiet_cmd_mkdtimg = DTBOIMG $@
+# cmd_mkdtimg = mkdtimg cfg_create $@ $<
+
+# mkdtboimg
 #----------------------------------------------------------------------------
 quiet_cmd_mkdtimg = DTBOIMG $@
-cmd_mkdtimg = mkdtimg cfg_create $@ $<
+cmd_mkdtimg = python2 $(srctree)/scripts/ufdt/libufdt/utils/src/mkdtboimg.py create $@ --page_size=4096 $(filter-out FORCE,$^)
 
 # cat
 # ---------------------------------------------------------------------------
